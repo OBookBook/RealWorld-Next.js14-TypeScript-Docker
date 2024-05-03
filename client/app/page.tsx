@@ -2,16 +2,10 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-type Article = {
-  slug: string;
-  created_at: string;
-  title: string;
-  description: string;
-};
+import { ArticleTypes } from './types/ArticleTypes';
 
 export default function Home() {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<ArticleTypes[]>([]);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -52,7 +46,7 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              {articles.map((article: Article) => (
+              {articles.map((article: ArticleTypes) => (
                 <div className="article-preview" key={article.slug}>
                   <div className="article-meta">
                     <a href="/profile/albert-pai">
