@@ -3,6 +3,7 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from 'next/navigation';
 
 const CreateEditArticle: NextPage = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +11,7 @@ const CreateEditArticle: NextPage = () => {
   const [body, setBody] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -21,6 +23,7 @@ const CreateEditArticle: NextPage = () => {
       });
       setSuccessMessage("記事が正常に登録されました");
       setErrorMessage("");
+      router.push('/');
     } catch (error) {
       setSuccessMessage("");
       setErrorMessage("記事の登録に失敗しました");
@@ -72,7 +75,6 @@ const CreateEditArticle: NextPage = () => {
                   />
                   <div className="tag-list">
                     <span className="tag-default tag-pill">
-                      {" "}
                       <i className="ion-close-round"></i> tag{" "}
                     </span>
                   </div>
