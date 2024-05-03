@@ -1,11 +1,11 @@
 "use client";
 
-import type { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
 
-const CreateEditArticle: NextPage = () => {
+const CreateEditArticle = (request : { searchParams: { slug: number, edit:boolean }}) => {
+  const { edit, slug } = request.searchParams;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
@@ -13,20 +13,40 @@ const CreateEditArticle: NextPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
+  useEffect(() => {
+    if (edit && slug) {
+      const fetchArticle = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/articles/${slug}`);
+          const { title, description, body } = response.data;
+          setTitle(title);
+          setDescription(description);
+          setBody(body);
+        } catch (error) {
+          console.error("記事の取得に失敗しました:", error);
+        }
+      };
+      fetchArticle();
+    }
+  }, [edit, slug]);
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const url = edit ? `http://localhost:8080/api/articles/${slug}` : "http://localhost:8080/api/articles";
+    const method = edit ? axios.put : axios.post;
+
     try {
-      const response = await axios.post("http://localhost:8080/api/articles", {
+      const response = await method(url, {
         title,
         description,
         body,
       });
-      setSuccessMessage("記事が正常に登録されました");
+      setSuccessMessage(edit ? "記事が正常に更新されました" : "記事が正常に登録されました");
       setErrorMessage("");
       router.push('/');
     } catch (error) {
       setSuccessMessage("");
-      setErrorMessage("記事の登録に失敗しました");
+      setErrorMessage(edit ? "記事の更新に失敗しました" : "記事の登録に失敗しました");
     }
   };
 
@@ -83,7 +103,7 @@ const CreateEditArticle: NextPage = () => {
                   className="btn btn-lg pull-xs-right btn-primary"
                   type="submit"
                 >
-                  Publish Article
+                  {edit ? "Update Article" : "Publish Article"}
                 </button>
               </fieldset>
             </form>
