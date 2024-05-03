@@ -14,7 +14,7 @@ export default function ArticleDetail(request : ArticleShowRequestParams) {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/articles/${id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/articles/${id}`);
         setArticle(response.data);
       } catch (error) {
         console.error("記事の取得に失敗しました:", error);
@@ -25,7 +25,7 @@ export default function ArticleDetail(request : ArticleShowRequestParams) {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/articles/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/articles/${id}`);
       router.push('/');
     } catch (error) {
       console.error("記事の削除に失敗しました:", error);

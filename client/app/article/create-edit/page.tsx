@@ -18,7 +18,7 @@ const CreateEditArticle = (request :ArticleSearchParams ) => {
     if (edit && slug) {
       const fetchArticle = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/api/articles/${slug}`);
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/articles/${slug}`);
           const { title, description, body } = response.data;
           setTitle(title);
           setDescription(description);
@@ -33,7 +33,7 @@ const CreateEditArticle = (request :ArticleSearchParams ) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const url = edit ? `http://localhost:8080/api/articles/${slug}` : "http://localhost:8080/api/articles";
+    const url = edit ? `${process.env.NEXT_PUBLIC_API_URL}/articles/${slug}` : `${process.env.NEXT_PUBLIC_API_URL}/articles`;
     const method = edit ? axios.put : axios.post;
 
     try {

@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/articles");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/articles`);
         setArticles(response.data);
       } catch (error) {
         console.error("記事の取得に失敗しました:", error);
