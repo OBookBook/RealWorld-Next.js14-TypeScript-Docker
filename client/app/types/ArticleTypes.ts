@@ -3,4 +3,5 @@ export type ArticleTypes = {
     created_at: string;
     title: string;
     description: string;
+    body: string;
 };
