@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ArticleTypes } from '../../types/ArticleTypes';
+import { useRouter } from 'next/navigation';
 
 export default function ArticleDetail(request : { params: { id: number }}) {
   const { id } = request.params;
   const [article, setArticle] = useState<ArticleTypes | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -19,6 +21,15 @@ export default function ArticleDetail(request : { params: { id: number }}) {
     };
     fetchArticle();
   }, []);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/api/articles/${id}`);
+      router.push('/');
+    } catch (error) {
+      console.error("記事の削除に失敗しました:", error);
+    }
+  };
 
   if (!article) {
     return <div>Loading...</div>;
@@ -52,7 +63,7 @@ export default function ArticleDetail(request : { params: { id: number }}) {
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-edit"></i> Edit Article
             </button>
-            <button className="btn btn-sm btn-outline-danger">
+            <button className="btn btn-sm btn-outline-danger" onClick={handleDelete}>
               <i className="ion-trash-a"></i> Delete Article
             </button>
           </div>
