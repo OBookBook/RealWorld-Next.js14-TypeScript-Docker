@@ -3,12 +3,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-interface Article {
+type Article = {
   slug: string;
   created_at: string;
   title: string;
   description: string;
-}
+};
 
 export default function Home() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -59,9 +59,9 @@ export default function Home() {
                       <img src="http://i.imgur.com/N4VcUeJ.jpg" />
                     </a>
                     <div className="info">
-                    <a href="/profile/albert-pai" className="author">
-                      Albert Pai
-                    </a>
+                      <a href="/profile/albert-pai" className="author">
+                        Albert Pai
+                      </a>
                       <span className="date">
                         {new Date(article.created_at).toLocaleDateString()}
                       </span>
