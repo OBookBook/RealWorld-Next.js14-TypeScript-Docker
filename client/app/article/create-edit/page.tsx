@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
+import { ArticleSearchParams } from "../../types/ArticleSearchParams";
 
-const CreateEditArticle = (request : { searchParams: { slug: number, edit:boolean }}) => {
+const CreateEditArticle = (request :ArticleSearchParams ) => {
   const { edit, slug } = request.searchParams;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

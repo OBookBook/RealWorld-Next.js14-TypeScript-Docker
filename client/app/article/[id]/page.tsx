@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ArticleTypes } from '../../types/ArticleTypes';
 import { useRouter } from 'next/navigation';
+import { ArticleShowRequestParams } from "../../types/ArticleShowRequestParams";
 
-export default function ArticleDetail(request : { params: { id: number }}) {
+export default function ArticleDetail(request : ArticleShowRequestParams) {
   const { id } = request.params;
   const [article, setArticle] = useState<ArticleTypes | null>(null);
   const router = useRouter();
