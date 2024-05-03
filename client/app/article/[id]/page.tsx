@@ -60,9 +60,12 @@ export default function ArticleDetail(request : { params: { id: number }}) {
               <i className="ion-heart"></i>
               &nbsp; Favorite Post <span className="counter">(29)</span>
             </button>
-            <button className="btn btn-sm btn-outline-secondary">
+            <button className="btn btn-sm btn-outline-secondary" onClick={() => router.push(`/article/create-edit?slug=${id}&edit=true`)}>
               <i className="ion-edit"></i> Edit Article
             </button>
+            {/* <button className="btn btn-sm btn-outline-secondary">
+              <i className="ion-edit"></i> Edit Article
+            </button> */}
             <button className="btn btn-sm btn-outline-danger" onClick={handleDelete}>
               <i className="ion-trash-a"></i> Delete Article
             </button>
