@@ -36,15 +36,6 @@ Conduit は、RealWorld プロジェクトの一環として、Medium.com のク
 - Article (認証機能や著者、お気に入り機能は実装不要): `http://localhost:3000/article/1`
 
 
-## ステップ 3: テストコードの作成 (完了)
-
-ArticleController の結合テスト作成
-`api\tests\Feature\ArticleControllerTest.php`
-
-```shell
-php artisan test
-```
-
 ## 工夫した点
 
 - **作成ページと編集ページの統合**:
