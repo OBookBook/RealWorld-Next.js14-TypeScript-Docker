@@ -33,7 +33,7 @@ export default function ArticleDetail(request : ArticleShowRequestParams) {
   };
 
   if (!article) {
-    return <div>Loading...</div>;
+    return <div className="mx-auto" style={{ fontSize: "5rem", textAlign: "center" }}>Loading...</div>;
   }
 
   return (

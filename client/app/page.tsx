@@ -6,14 +6,17 @@ import { ArticleTypes } from './types/ArticleTypes';
 
 export default function Home() {
   const [articles, setArticles] = useState<ArticleTypes[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/articles`);
         setArticles(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("記事の取得に失敗しました:", error);
+        setLoading(false);
       }
     };
     fetchArticles();
@@ -46,39 +49,43 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              {articles.map((article: ArticleTypes) => (
-                <div className="article-preview" key={article.slug}>
-                  <div className="article-meta">
-                    <a href="/profile/albert-pai">
-                      <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-                    </a>
-                    <div className="info">
-                      <a href="/profile/albert-pai" className="author">
-                        Albert Pai
+              {loading ? (
+                <div className="mx-auto" style={{ fontSize: "5rem" }}>Loading...</div>
+              ) : (
+                articles.map((article: ArticleTypes) => (
+                  <div className="article-preview" key={article.slug}>
+                    <div className="article-meta">
+                      <a href="/profile/albert-pai">
+                        <img src="http://i.imgur.com/N4VcUeJ.jpg" />
                       </a>
-                      <span className="date">
-                        {new Date(article.created_at).toLocaleDateString()}
-                      </span>
+                      <div className="info">
+                        <a href="/profile/albert-pai" className="author">
+                          Albert Pai
+                        </a>
+                        <span className="date">
+                          {new Date(article.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                        <i className="ion-heart"></i> 0
+                      </button>
                     </div>
-                    <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                      <i className="ion-heart"></i> 0
-                    </button>
+                    <a href={`/article/${article.slug}`} className="preview-link">
+                      <h1>{article.title}</h1>
+                      <p>{article.description}</p>
+                      <span>Read more...</span>
+                      <ul className="tag-list">
+                        <li className="tag-default tag-pill tag-outline">
+                          realworld
+                        </li>
+                        <li className="tag-default tag-pill tag-outline">
+                          implementations
+                        </li>
+                      </ul>
+                    </a>
                   </div>
-                  <a href={`/article/${article.slug}`} className="preview-link">
-                    <h1>{article.title}</h1>
-                    <p>{article.description}</p>
-                    <span>Read more...</span>
-                    <ul className="tag-list">
-                      <li className="tag-default tag-pill tag-outline">
-                        realworld
-                      </li>
-                      <li className="tag-default tag-pill tag-outline">
-                        implementations
-                      </li>
-                    </ul>
-                  </a>
-                </div>
-              ))}
+                ))
+              )}
 
               <ul className="pagination">
                 <li className="page-item active">
@@ -132,3 +139,5 @@ export default function Home() {
     </div>
   );
 }
+
+
