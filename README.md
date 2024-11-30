@@ -8,7 +8,7 @@
 
 Conduit は、RealWorld プロジェクトの一環として、Medium.com のクローンサイトを作成するためのブログプラットフォームです。このプロジェクトは、実際の世界と同じ機能を持つプラットフォームを作ることで、学習したいフレームワークの技術を習得することを目的としています。
 
-## ステップ 1: HTML と CSS の実装 (完了)
+## UI実装
 
 以下のページの HTML と CSS を実装し、ページを作成してください。この段階では機能は実装せず、見た目のみを整えます。
 
@@ -16,7 +16,7 @@ Conduit は、RealWorld プロジェクトの一環として、Medium.com のク
 - Create/Edit Article
 - Article
 
-## ステップ 2: 機能の実装 (完了)
+## 機能実装
 
 ![image](https://github.com/OBookBook/RealWorld-Next.js14-TypeScript-Docker/assets/130152109/0e886f9e-9c0c-4af8-b987-1781bba9ab27)
 
